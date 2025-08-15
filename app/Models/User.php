@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function families()
+    {
+        return $this->belongsToMany(\App\Models\Family::class)
+            ->withTimestamps()
+            ->withPivot('role'); // admin/member
+    }
+
 }

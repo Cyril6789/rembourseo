@@ -75,6 +75,8 @@
     </style>
 
     @stack('styles')
+    @livewireStyles
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 
@@ -107,6 +109,7 @@
                 <div class="name">{{ config('app.name','Rembourséo') }}</div>
             </div>
 
+            @auth
             <div class="nav-group">
                 <div class="nav-title">Navigation</div>
                 <a href="{{ route('dashboard') }}" class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">🏠 Tableau de bord</a>
@@ -114,9 +117,11 @@
                 <a href="{{ route('expenses.index') }}" class="nav-item {{ request()->routeIs('expenses.*') ? 'active' : '' }}">💳 Dépenses</a>
                 <a href="{{ route('claims.index') }}"   class="nav-item {{ request()->routeIs('claims.*') ? 'active' : '' }}">💶 Remboursements</a>
                 <a href="{{ route('insurers.index') }}" class="nav-item {{ request()->routeIs('insurers.*') ? 'active' : '' }}">🏥 Mutuelles</a>
-                <a href="{{ route('members.index') }}"  class="nav-item {{ request()->routeIs('members.*') ? 'active' : '' }}">👪 Famille</a>
                 --}}
+                <a href="{{ route('families.manage') }}"  class="nav-item {{ request()->routeIs('families.*') ? 'active' : '' }}">👪 Familles</a>
+                
             </div>
+            @endauth
 
             <div class="nav-group">
                 <div class="nav-title">Compte</div>
@@ -149,6 +154,8 @@
                 </div>
 
                 <section class="card">
+                    {{-- pour Livewire v3 --}}
+                        {{ $slot ?? '' }}
                     @yield('content')
                 </section>
             </div>
@@ -189,5 +196,6 @@
     </script>
 
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>
